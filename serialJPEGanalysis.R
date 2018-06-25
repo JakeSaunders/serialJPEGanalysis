@@ -1,3 +1,15 @@
+teamDriveDownload <- function(team.drive.name, folder.name){
+    if(!require("googledrive")) install.packages("googledrive")
+    library(googledrive)
+    q.search <- paste0("name contains '",folder.name,"'")
+    folder.id <- as.data.frame(
+        drive_find(team_drive = team.drive.name, q=q.search)$drive_resource,
+        stringsAsFactors = F)$id
+    folder.files <- drive_ls(as_id(folder.id))
+    drive_download(as_id(folder.files$id[1]))
+    lapply(folder.files$id, function(x) drive_download(as_id(x),overwrite = T))
+}
+
 binning.jpeg  <- function(dir,bin.length.sec=3600,frame.interval.sec = 10,dir.out="bins"){
     # load package, add download if not there
     if (!"EBImage" %in% rownames(installed.packages())) {
@@ -189,3 +201,4 @@ makeHeatmaps <- function(
 # make function summing all bins
 # need to make function to segment cage and bargraphs of activity in each sections
 # need to make function to make bargraphs of activity automaticlly
+
