@@ -123,6 +123,7 @@ binning.png  <- function(dir,bin.length.sec=3600,frame.interval.sec = 10,dir.out
     print("----------   Adding Matrices and Saving     ----------")
     print(paste0("bin - start - finish"))
     delta <- list.files("delta/",pattern = "*.png",full.names = FALSE)
+    
     for (bin in bin.number) {
         start  <- as.numeric((bin-1)*frames.per.bin+1)
         finish <- bin*frames.per.bin
@@ -131,9 +132,11 @@ binning.png  <- function(dir,bin.length.sec=3600,frame.interval.sec = 10,dir.out
             nrow=nrow(read.csv(paste0("delta/",delta[1]))),
             ncol=ncol(read.csv(paste0("delta/",delta[1])))
         ))
-        for (number in start:finish){
+        print(array)
+                for (number in start:finish){
             array <- array + read.csv(paste0("delta/",delta[number]))
         }
+        print("write tables")
         write.table(x=array, file = paste0(
             dir.out,"/","bin-",sprintf(paste0("%0",max(nchar(bin.number)),"d"), bin),
             ".frame-",start,"to",finish,".secs",bin.length.sec,".raw.csv"),
@@ -144,7 +147,7 @@ binning.png  <- function(dir,bin.length.sec=3600,frame.interval.sec = 10,dir.out
             sep = ",",row.names = F,col.names = F)
         print(paste0(" ",bin," -   ",start,"  -   ",finish))
     }
-}
+    }
 
 makeHeatmaps <- function(
         dir,
@@ -186,6 +189,3 @@ makeHeatmaps <- function(
 # make function summing all bins
 # need to make function to segment cage and bargraphs of activity in each sections
 # need to make function to make bargraphs of activity automaticlly
-
-
-
