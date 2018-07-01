@@ -241,6 +241,16 @@ imageSeries <- function(
                         drop.rows = drop.rows,drop.cols = drop.cols)})
 }
 
+countFiles <- function(team.drive.name,folder.name){
+    q.search <- paste0("name contains '",folder.name,"'")
+    folder.id <- as.data.frame(
+        drive_find(team_drive = team.drive.name, q=q.search)$drive_resource,
+        stringsAsFactors = F)$id
+    folder.files <- drive_ls(as_id(folder.id))
+    length(folder.files$name)
+}
+
+
 ###### TO DO #########
 # need to make function to make graphs of activity automaticlly
 #consider changeing binning.jpeg and binning.png to add downsample resolution variable
