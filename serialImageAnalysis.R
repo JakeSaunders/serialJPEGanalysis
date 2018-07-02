@@ -224,7 +224,7 @@ sumBins <- function(img, bins, bin.rows = TRUE){
 imageMatrix2Bins <- function(img, bins, bin.rows = TRUE, drop.rows=NA, drop.cols=NA){
     sumBins(
         img = dropRowsCols(img = img, drop.rows = drop.rows, drop.cols = drop.cols),
-        bins = 3,
+        bins = bins,
         bin.rows = T
     )
 }
