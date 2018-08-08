@@ -1,5 +1,7 @@
 # Serial Image Analysis
 
+For current verison see: https://github.com/JakeSaunders/serialImageAnalysis/tree/master
+
 ## serialJPEGanalysis
 ## teamDriveDownload
 ## binning.jpeg
